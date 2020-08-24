@@ -1,0 +1,67 @@
+﻿@model IEnumerable<PCUdlevering.Models.DAOClasses.DAOComputer>
+
+@{
+    ViewBag.Title = "ListComputer";
+}
+
+<h2>List of Computers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Computer-nr
+        </th>
+        <th>
+            Udlånsdato
+        </th>
+        <th>
+            Udlån
+        </th>
+        <th>
+            Aflever
+        </th>
+        <th>
+            Afleveringsdato
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PcID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LendDate)
+        </td>
+        <td>
+            @using (Html.BeginForm("ReturnLendDate", "ComputerController"))
+            {
+
+                <input name="lenddate" type="button" value="Udlån" onclick="ReturnLendDate()">
+
+            }
+        </td>
+        <td>
+            @using (Html.BeginForm("ReturnHandInDate", "ComputerController"))
+            {
+
+                <input type="button" value="Aflever">
+
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HandInDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
