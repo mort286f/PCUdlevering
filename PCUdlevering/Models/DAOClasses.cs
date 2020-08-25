@@ -8,7 +8,7 @@ namespace PCUdlevering.Models.DAOClasses
     public class DAOComputer
     {
         public string PcID { get; set; }
-        public DateTime? LendDate { get; set; } = null;
+        public DateTime? LendDate { get; set; }
         public bool IsLent { get; set; } = false;
         public bool IsHandedIn { get; set; } = false;
         public DateTime? HandInDate { get; set; } = null;

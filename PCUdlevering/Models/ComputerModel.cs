@@ -38,14 +38,14 @@ namespace PCUdlevering.Models
             return computers;
         }
 
-        public static void SetLendDate(DAOClasses.DAOComputer value)
+        public static void SetLendDate(string pcID)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
+                var ld = DateTime.Now;
                 connection.Open();
-                SqlCommand cmd = new SqlCommand("UPDATE PCTable (LendDate, PCID) SET LendDate = @ld WHERE PCID = @id", connection);
-                cmd.Parameters.Add(new SqlParameter("@ld", value.LendDate = DateTime.Now));
-                cmd.Parameters.Add(new SqlParameter("@id", value.PcID));
+                SqlCommand cmd = new SqlCommand($"UPDATE PCTable (LendDate, PCID) SET LendDate = @{ld} WHERE PCID = @{pcID}", connection);
+
             }
         }
     }

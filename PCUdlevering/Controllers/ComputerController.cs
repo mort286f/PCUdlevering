@@ -20,10 +20,10 @@ namespace PCUdlevering.Controllers
             return View(ComputerModel.GetComputers());
         }
 
-        public ActionResult ReturnLendDate()
+        public ActionResult ReturnLendDate(string pcid)
         {
-            //er ikke done her
-            return View(ComputerModel.SetLendDate());
+            ComputerModel.SetLendDate(pcID: pcid);
+            return View();
         }
 
         public ActionResult ReturnHandInDate()
