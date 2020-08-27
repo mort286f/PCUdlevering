@@ -22,13 +22,18 @@ namespace PCUdlevering.Controllers
 
         public ActionResult ReturnLendDate(string pcid)
         {
-            ComputerModel.SetLendDate(pcID: pcid);
-            return View();
+            ComputerModel.SetLendDate(pcid);
+            return RedirectToAction("ListComputer");
         }
 
         public ActionResult ReturnHandInDate()
         {
             return View();
+        }
+        public ActionResult Delete(string pc)
+        {
+
+            return RedirectToAction("ListComputer");
         }
     }
 }

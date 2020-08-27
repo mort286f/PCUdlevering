@@ -44,8 +44,10 @@ namespace PCUdlevering.Models
             {
                 var ld = DateTime.Now;
                 connection.Open();
-                SqlCommand cmd = new SqlCommand($"UPDATE PCTable (LendDate, PCID) SET LendDate = @{ld} WHERE PCID = @{pcID}", connection);
-
+                SqlCommand cmd = new SqlCommand($"UPDATE PCTable SET LendDate = @ld WHERE PCID = @pcID", connection);
+                cmd.Parameters.Add(new SqlParameter("@pcID", pcID));
+                cmd.Parameters.Add(new SqlParameter("@ld", ld));
+                cmd.ExecuteNonQuery();
             }
         }
     }

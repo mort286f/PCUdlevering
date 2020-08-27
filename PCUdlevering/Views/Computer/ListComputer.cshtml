@@ -1,93 +1,89 @@
 ﻿@model IEnumerable<PCUdlevering.Models.DAOClasses.DAOComputer>
-
 @{
     ViewBag.Title = "ListComputer";
 }
-<!DOCTYPE html>
-<html>
-<body>
-    <h2>List of Computers</h2>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
+
+<h2>List of Computers</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<h3>
+    @Html.ActionLink("Opdater", "ListComputer", "Computer") |
+</h3>
+<p>
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Computer-nr
+        </th>
+        <th>
+            Udlånsdato
+        </th>
+        <th>
+            Udlån
+        </th>
+        <th>
+            Aflever
+        </th>
+        <th>
+            Afleveringsdato
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                Computer-nr
-            </th>
-            <th>
-                Udlånsdato
-            </th>
-            <th>
-                Udlån
-            </th>
-            <th>
-                Aflever
-            </th>
-            <th>
-                Afleveringsdato
-            </th>
-            <th></th>
+            <td>
+                @Html.DisplayFor(modelItem => item.PcID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LendDate)
+            </td>
+            <td>
+                @using (Html.BeginForm("ReturnLendDate", "Computer"))
+                {
+
+                    <input class=".anchorDetail" name="lenddate" type="submit" value="Udlån" data-id="@item.PcID">
+                    
+                }
+                    @Html.ActionLink("Udlån", "LendDateLink", new {id = item.PcID})
+            </td>
+            <td>
+                @using (Html.BeginForm("ReturnHandInDate", "Computer/ComputerController"))
+                {
+
+                    <input type="button" value="Aflever">
+
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HandInDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PcID })
+            </td>
         </tr>
+    }
+    
+</table>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PcID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LendDate)
-                </td>
-                <td>
-                    @using (Html.BeginForm("ReturnLendDate", "Computer/ComputerController"))
-                    {
-
-                        <input class="anchorLend" name="lenddate" type="submit" value="Udlån" onclick="ReturnLendDate()" data-id="@item.PcID">
-
-                    }
-                </td>
-                <td>
-                    @using (Html.BeginForm("ReturnHandInDate", "Computer/ComputerController"))
-                    {
-
-                        <input type="button" value="Aflever">
-
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HandInDate)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-        }
-
-    </table>
-</body>
-</html>
 <script>
     var TeamDetailPostBackURL = '/Computer/ReturnLendDate';
     $(function () {
-        $(".anchorLend").click(function () {
+        $(".anchorDetail").click(function () {
             var $buttonClicked = $(this);
             var id = $buttonClicked.attr('data-id');
+            alert(id);
             var options = { "backdrop": true, keyboard: true };
             $.ajax({
                 type: "GET",
                 url: TeamDetailPostBackURL,
                 contentType: "application/json; charset=utf-8",
-                data: { "Id": id },
-                datatype: "json",
-                success: function (data) {
-                    $('#myModalContent').html(data);
-                    $('#myModal').modal(options);
-                    $('#myModal').modal('show');
-
-                },
+                data: { "pcid": id },
             });
         });
 </script>
