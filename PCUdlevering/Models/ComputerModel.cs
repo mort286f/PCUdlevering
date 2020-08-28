@@ -42,11 +42,24 @@ namespace PCUdlevering.Models
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var ld = DateTime.Now;
                 connection.Open();
-                SqlCommand cmd = new SqlCommand($"UPDATE PCTable SET LendDate = @ld WHERE PCID = @pcID", connection);
+                SqlCommand cmd = new SqlCommand($"UPDATE PCTable SET LendDate = @ld, HandInDate = @hd WHERE PCID = @pcID", connection);
                 cmd.Parameters.Add(new SqlParameter("@pcID", pcID));
-                cmd.Parameters.Add(new SqlParameter("@ld", ld));
+                cmd.Parameters.Add(new SqlParameter("@ld", DateTime.Now));
+                cmd.Parameters.Add(new SqlParameter("@hd", DBNull.Value));
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static void SetHandInDate(string pcID)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand($"UPDATE PCTable SET HandInDate = @hd, LendDate = @ld WHERE PCID = @pcID", connection);
+                cmd.Parameters.Add(new SqlParameter("@pcID", pcID));
+                cmd.Parameters.Add(new SqlParameter("@hd", DateTime.Now));
+                cmd.Parameters.Add(new SqlParameter("@ld", DBNull.Value));
                 cmd.ExecuteNonQuery();
             }
         }

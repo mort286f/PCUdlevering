@@ -20,19 +20,15 @@ namespace PCUdlevering.Controllers
             return View(ComputerModel.GetComputers());
         }
 
-        public ActionResult ReturnLendDate(string pcid)
+        public ActionResult ReturnLendDate(string lend)
         {
-            ComputerModel.SetLendDate(pcid);
+            ComputerModel.SetLendDate(lend);
             return RedirectToAction("ListComputer");
         }
 
-        public ActionResult ReturnHandInDate()
+        public ActionResult ReturnHandInDate(string hand)
         {
-            return View();
-        }
-        public ActionResult Delete(string pc)
-        {
-
+            ComputerModel.SetHandInDate(hand);
             return RedirectToAction("ListComputer");
         }
     }
