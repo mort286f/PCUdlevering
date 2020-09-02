@@ -13,7 +13,7 @@
 <p>
 
 </p>
-<table class="table">
+<table class="table1">
     <tr>
         <th>
             Computer-nr
@@ -30,7 +30,6 @@
         <th>
             Afleveret d.
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model)
@@ -39,24 +38,26 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PcID)
             </td>
-            <td>
+            <td width="250px">
                 @Html.DisplayFor(modelItem => item.LendDate)
             </td>
             <td>
-                    <input id="lend" class="anchorLendDetail" type="button" value="Udlån" lend-id="@item.PcID"/>
+                    <input class="anchorLendDetail anchorReturnList" type="button" value="Udlån" lend-id="@item.PcID"/>
             </td>
             <td>
-                    <input id="hand" class="anchorHandInDetail" type="button" value="Aflever" hand-id="@item.PcID"/>
+                    <input class="anchorHandInDetail anchorReturnList" type="button" value="Aflever" hand-id="@item.PcID"/>
             </td>
-            <td>
+            <td width="250px">
                 @Html.DisplayFor(modelItem => item.HandInDate)
+            </td>
+            <td>
             </td>
         </tr>
     }
     
 </table>
 
-<script id="lend">
+<script>
     var TeamLendPostBackURL = '/Computer/ReturnLendDate';
     $(function () {
         $(".anchorLendDetail").click(function () {
@@ -71,15 +72,14 @@
                 data: { "lend": id },
             });
         });
+        window.location.reload
     });
-
 
     var TeamHandInPostBackURL = '/Computer/ReturnHandInDate';
     $(function () {
         $(".anchorHandInDetail").click(function () {
             var $buttonClicked = $(this);
             var id = $buttonClicked.attr('hand-id');
-            console.log(id);
             var options = { "backdrop": true, keyboard: true };
             $.ajax({
                 type: "GET",
@@ -89,4 +89,17 @@
             });
         });
     });
+
+    $(function () {
+        $(".anchorReturnList").click(function () {
+            window.location.reload()
+        });
+    });
+
+    function getTime() {
+            var date = new Date();
+            var yyyy = date.getFullYear();
+
+            document.getElementById('datebtn').innerHTML = yyyy;
+    };
 </script>

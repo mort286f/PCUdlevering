@@ -23,13 +23,15 @@ namespace PCUdlevering.Controllers
         public ActionResult ReturnLendDate(string lend)
         {
             ComputerModel.SetLendDate(lend);
-            return RedirectToAction("ListComputer");
+            ComputerModel.GetComputers();
+            return View("Views/Computer/ListComputer.cshtml");
         }
 
         public ActionResult ReturnHandInDate(string hand)
         {
             ComputerModel.SetHandInDate(hand);
-            return RedirectToAction("ListComputer");
+            ComputerModel.GetComputers();
+            return View(ComputerModel.GetComputers());
         }
     }
 }

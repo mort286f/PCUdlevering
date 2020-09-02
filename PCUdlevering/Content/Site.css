@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.table1{
+    table-layout: fixed;
+    width: 900px;
+    height: 150px;
+    margin-bottom: 0px ;
+}
+
+th, td{
+
+}
