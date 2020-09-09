@@ -24,12 +24,32 @@ textarea {
 }
 
 .table1{
-    table-layout: fixed;
-    width: 900px;
-    height: 150px;
+    height: 15px;
     margin-bottom: 0px ;
 }
 
-th, td{
+.table2 {
+    table-layout: fixed;
+    width: 1500px;
+    height: 15px;
+    margin-bottom: 0px;
+}
 
+popuplogin1 {
+    margin: 0;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 50px;
+    padding-top: 10px;
+    width: 20%;
+    height: 150px;
+    position: absolute;
+    background: #FBFBF0;
+    border: solid #000000 2px;
+    z-index: 9;
+    font-family: arial;
+}
+
+#hide-me {
+    padding-top: 15px;
 }

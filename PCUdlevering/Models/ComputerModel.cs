@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 
 namespace PCUdlevering.Models
 {
@@ -43,7 +44,8 @@ namespace PCUdlevering.Models
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand cmd = new SqlCommand($"UPDATE PCTable SET LendDate = @ld, HandInDate = @hd WHERE PCID = @pcID", connection);
+                SqlCommand cmd = new SqlCommand($"UPDATE PCTable SET LendDate = @ld, HandInDate = @hd, IsLent = @il WHERE PCID = @pcID", connection);
+                cmd.Parameters.Add(new SqlParameter("@il", true));
                 cmd.Parameters.Add(new SqlParameter("@pcID", pcID));
                 cmd.Parameters.Add(new SqlParameter("@ld", DateTime.Now));
                 cmd.Parameters.Add(new SqlParameter("@hd", DBNull.Value));
@@ -56,7 +58,8 @@ namespace PCUdlevering.Models
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand cmd = new SqlCommand($"UPDATE PCTable SET HandInDate = @hd, LendDate = @ld WHERE PCID = @pcID", connection);
+                SqlCommand cmd = new SqlCommand($"UPDATE PCTable SET HandInDate = @hd, LendDate = @ld, IsLent = @il WHERE PCID = @pcID", connection);
+                cmd.Parameters.Add(new SqlParameter("@il", false));
                 cmd.Parameters.Add(new SqlParameter("@pcID", pcID));
                 cmd.Parameters.Add(new SqlParameter("@hd", DateTime.Now));
                 cmd.Parameters.Add(new SqlParameter("@ld", DBNull.Value));

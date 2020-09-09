@@ -254,6 +254,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.Protocols" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
@@ -476,6 +478,7 @@
     </Compile>
     <Compile Include="Models\ComputerModel.cs" />
     <Compile Include="Models\DAOClasses.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -511,8 +514,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Computer\Index.cshtml" />
     <Content Include="Views\Computer\ListComputer.cshtml" />
+    <Content Include="Views\Computer\View.cshtml" />
+    <Content Include="Views\Shared\_ComputerTable.cshtml" />
+    <Content Include="Views\Shared\_LoginScreen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

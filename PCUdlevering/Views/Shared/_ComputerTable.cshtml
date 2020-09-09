@@ -1,0 +1,73 @@
+﻿@model IEnumerable<PCUdlevering.Models.DAOClasses.DAOComputer>
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PcID)
+            </td>
+            <td width="250px">
+                @Html.DisplayFor(modelItem => item.LendDate)
+            </td>
+            <td>
+                <input class="anchorLendDetail" onclick="displayLogin()" id="lendButton" type="button" value="Udlån" lend-id="@item.PcID" disabled="@item.IsLent"/>
+            </td>
+            <td>
+                <input class="anchorHandInDetail" id="handInButton" type="button" value="Aflever" hand-id="@item.PcID" disabled="@item.IsLent != true"/>
+            </td>
+            <td width="250px">
+                @Html.DisplayFor(modelItem => item.HandInDate)
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    function displayLogin() {
+        window.open('Computer/OpenPopup', 'PopupWindow', 'width=400px,height=300px,top=150,left=250');
+    };
+
+
+
+    function initiatefunction() {
+        console.log("initiatefunctioncalled");
+        if (loginfunct(getelementbyid('formname'), getelementbyid('formpass')) == true) {
+            
+
+        };
+        
+
+    };
+
+    var TeamLendPostBackURL = '/Computer/ViewToJsonAction';
+    $(function () {
+        $(".anchorLendDetail").click(function () {
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('lend-id');
+            var options = { "backdrop": true, keyboard: true };
+            console.log(id);
+            $.getElementById('hide-me').style
+                    $.post("@Url.Action("ViewToJsonAction", "Computer")", { "lend": id },
+                        function (data) {
+                            $(".table").replaceWith(data);
+                        }
+                    );
+            });
+    });
+
+    var TeamLendPostBackURL = '/Computer/ViewToJsonAction';
+    $(function () {
+        $(".anchorHandInDetail").click(function () {
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('hand-id');
+            var options = { "backdrop": true, keyboard: true };
+            console.log(id);
+                    $.post("@Url.Action("ViewToJsonAction", "Computer")", { "hand": id },
+                        function (data) {
+                            $(".table").replaceWith(data);
+                        }
+                    );
+            });
+    });
+
+</script>

@@ -10,96 +10,38 @@
 <h3>
     @Html.ActionLink("Opdater", "ListComputer", "Computer")
 </h3>
-<p>
 
-</p>
-<table class="table1">
+<table class="table1" height="15px">
     <tr>
-        <th>
+        <th width="270px">
             Computer-nr
         </th>
-        <th>
+        <th width="252px">
             Udlånsdato
         </th>
-        <th>
+        <th width="178px">
             Udlån
         </th>
-        <th>
+        <th width="200px">
             Aflever
         </th>
-        <th>
+        <th width="236px">
             Afleveret d.
         </th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PcID)
-            </td>
-            <td width="250px">
-                @Html.DisplayFor(modelItem => item.LendDate)
-            </td>
-            <td>
-                    <input class="anchorLendDetail anchorReturnList" type="button" value="Udlån" lend-id="@item.PcID"/>
-            </td>
-            <td>
-                    <input class="anchorHandInDetail anchorReturnList" type="button" value="Aflever" hand-id="@item.PcID"/>
-            </td>
-            <td width="250px">
-                @Html.DisplayFor(modelItem => item.HandInDate)
-            </td>
-            <td>
-            </td>
-        </tr>
-    }
-    
+
+        @{Html.RenderPartial("_ComputerTable");
+        }
+
 </table>
 
 <script>
-    var TeamLendPostBackURL = '/Computer/ReturnLendDate';
-    $(function () {
-        $(".anchorLendDetail").click(function () {
-            var $buttonClicked = $(this);
-            var id = $buttonClicked.attr('lend-id');
-            var options = { "backdrop": true, keyboard: true };
-            console.log(id);
-            $.ajax({
-                type: "GET",
-                url: TeamLendPostBackURL,
-                contentType: "application/json; charset=utf-8",
-                data: { "lend": id },
-            });
-        });
-        window.location.reload
-    });
-
-    var TeamHandInPostBackURL = '/Computer/ReturnHandInDate';
-    $(function () {
-        $(".anchorHandInDetail").click(function () {
-            var $buttonClicked = $(this);
-            var id = $buttonClicked.attr('hand-id');
-            var options = { "backdrop": true, keyboard: true };
-            $.ajax({
-                type: "GET",
-                url: TeamHandInPostBackURL,
-                contentType: "application/json; charset=utf-8",
-                data: { "hand": id },
-            });
-        });
-    });
-
-    $(function () {
-        $(".anchorReturnList").click(function () {
-            window.location.reload()
-        });
-    });
 
     function getTime() {
-            var date = new Date();
-            var yyyy = date.getFullYear();
+        var date = new Date();
+        var yyyy = date.getFullYear();
 
-            document.getElementById('datebtn').innerHTML = yyyy;
+        document.getElementById('datebtn').innerHTML = yyyy;
     };
 </script>
